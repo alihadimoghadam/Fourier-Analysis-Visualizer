@@ -2,6 +2,19 @@
 
 This program is designed to calculate and visualize the impulse response, output signal, Fourier series coefficients, and Fourier transform of a given input signal.
 
+## About
+
+The Signal Analysis and Visualization Tool is a Python program that allows users to analyze and visualize the characteristics of a given input signal. It calculates and displays the impulse response, output signal, Fourier series coefficients, and Fourier transform of the input signal.
+
+With this tool, users can gain insights into the behavior of a signal, examine its frequency components, and understand the effects of convolution with an impulse response. The program provides both numerical outputs and visual representations of the analyzed signals and coefficients.
+
+It serves as a useful tool for students, researchers, and engineers working in the field of signal processing, allowing them to explore and analyze various signals and gain a better understanding of their frequency content and behavior.
+
+The program is written in Python and utilizes popular libraries such as numpy for numerical computations and matplotlib for plotting. It offers customization options to adjust parameters and settings according to specific analysis requirements.
+
+The Signal Analysis and Visualization Tool is designed to be user-friendly, providing clear and concise results while allowing for further customization and expansion based on individual needs and preferences.
+
+
 ## Prerequisites
 
 - Python 3.x
