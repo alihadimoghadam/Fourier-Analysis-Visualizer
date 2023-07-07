@@ -40,6 +40,19 @@ print(frequency)
 print("\nFourier Transform:")
 print(fourier_transform)
 
+# Save the logs to a file
+with open("log.txt", "w") as log_file:
+    log_file.write("Input Signal:\n")
+    log_file.write(str(input_signal))
+    log_file.write("\n\nOutput Signal:\n")
+    log_file.write(str(output_signal))
+    log_file.write("\n\nFourier Series Coefficients:\n")
+    log_file.write(str(fourier_series))
+    log_file.write("\n\nFrequency:\n")
+    log_file.write(str(frequency))
+    log_file.write("\n\nFourier Transform:\n")
+    log_file.write(str(fourier_transform))
+
 # Plotting the results
 plt.figure(figsize=(12, 8))
 
