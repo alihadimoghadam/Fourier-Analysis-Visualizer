@@ -14,7 +14,6 @@ This program is designed to calculate and visualize the impulse response, output
 
 ```
 pip install numpy matplotlib
-
 ```
 
 ## Usage
@@ -25,7 +24,6 @@ pip install numpy matplotlib
 
 ```
 python Visualizer.py
-
 ```
 4. The program will display the input signal, output signal, Fourier series coefficients, and Fourier transform.
 5. The results will also be saved to a log file named `log.txt` in the same directory.
