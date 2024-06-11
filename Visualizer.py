@@ -41,7 +41,7 @@ def plot_results(t, input_signal, output_signal, fourier_series, frequency, four
     plt.ylabel('Amplitude')
 
     plt.subplot(2, 2, 3)
-    harmonics_range = range(-len(fourier_series) // 2, len(fourier_series) // 2 + 1)
+    harmonics_range = range(-len(fourier_series) // 2, len(fourier_series) // 2)
     plt.stem(harmonics_range, np.abs(fourier_series), basefmt=" ")
     plt.title('Fourier Series Coefficients')
     plt.xlabel('Harmonics')
