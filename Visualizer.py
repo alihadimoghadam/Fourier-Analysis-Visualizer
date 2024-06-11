@@ -13,64 +13,70 @@ def calculate_fourier_series(input_signal, t, T, num_harmonics):
     for n in range(-num_harmonics, num_harmonics + 1):
         coefficient = np.sum(input_signal * np.exp(-1j * 2 * np.pi * n * t / T)) / T
         coefficients.append(coefficient)
-    return coefficients
+    return np.array(coefficients)
 
 def calculate_fourier_transform(input_signal, t):
     frequency = np.fft.fftfreq(len(t), t[1] - t[0])
     transform = np.fft.fft(input_signal)
     return frequency, transform
 
-# Example usage
-t = np.linspace(0, 5, 500)  # Time vector
-input_signal = np.sin(2 * np.pi * t)  # Example input signal
+def log_data(filename, data_dict):
+    with open(filename, "w") as log_file:
+        for key, value in data_dict.items():
+            log_file.write(f"{key}:\n{value}\n\n")
 
-output_signal = calculate_output(input_signal, impulse_response(t))
-fourier_series = calculate_fourier_series(input_signal, t, t[-1], 10)
-frequency, fourier_transform = calculate_fourier_transform(input_signal, t)
+def plot_results(t, input_signal, output_signal, fourier_series, frequency, fourier_transform):
+    plt.figure(figsize=(12, 8))
 
-# Print signals and numbers
-print("Input Signal:")
-print(input_signal)
-print("\nOutput Signal:")
-print(output_signal)
-print("\nFourier Series Coefficients:")
-print(fourier_series)
-print("\nFrequency:")
-print(frequency)
-print("\nFourier Transform:")
-print(fourier_transform)
+    plt.subplot(2, 2, 1)
+    plt.plot(t, input_signal)
+    plt.title('Input Signal')
+    plt.xlabel('Time')
+    plt.ylabel('Amplitude')
 
-# Save the logs to a file
-with open("log.txt", "w") as log_file:
-    log_file.write("Input Signal:\n")
-    log_file.write(str(input_signal))
-    log_file.write("\n\nOutput Signal:\n")
-    log_file.write(str(output_signal))
-    log_file.write("\n\nFourier Series Coefficients:\n")
-    log_file.write(str(fourier_series))
-    log_file.write("\n\nFrequency:\n")
-    log_file.write(str(frequency))
-    log_file.write("\n\nFourier Transform:\n")
-    log_file.write(str(fourier_transform))
+    plt.subplot(2, 2, 2)
+    plt.plot(t, output_signal)
+    plt.title('Output Signal')
+    plt.xlabel('Time')
+    plt.ylabel('Amplitude')
 
-# Plotting the results
-plt.figure(figsize=(12, 8))
+    plt.subplot(2, 2, 3)
+    plt.stem(range(-len(fourier_series)//2, len(fourier_series)//2 + 1), np.abs(fourier_series), basefmt=" ")
+    plt.title('Fourier Series Coefficients')
+    plt.xlabel('Harmonics')
+    plt.ylabel('Magnitude')
 
-plt.subplot(2, 2, 1)
-plt.plot(t, input_signal)
-plt.title('Input Signal')
+    plt.subplot(2, 2, 4)
+    plt.plot(frequency, np.abs(fourier_transform))
+    plt.title('Fourier Transform')
+    plt.xlabel('Frequency')
+    plt.ylabel('Magnitude')
 
-plt.subplot(2, 2, 2)
-plt.plot(t, output_signal)
-plt.title('Output Signal')
+    plt.tight_layout()
+    plt.show()
 
-plt.subplot(2, 2, 3)
-plt.stem(range(-10, 11), np.abs(fourier_series))
-plt.title('Fourier Series')
+def main():
+    t = np.linspace(0, 5, 500)  # Time vector
+    input_signal = np.sin(2 * np.pi * t)  # Example input signal
 
-plt.subplot(2, 2, 4)
-plt.plot(frequency, np.abs(fourier_transform))
-plt.title('Fourier Transform')
+    # Calculate output signal and transforms
+    impulse_resp = impulse_response(t)
+    output_signal = calculate_output(input_signal, impulse_resp)
+    fourier_series = calculate_fourier_series(input_signal, t, t[-1], 10)
+    frequency, fourier_transform = calculate_fourier_transform(input_signal, t)
 
-plt.tight_layout()
-plt.show()
+    # Log the results
+    data_to_log = {
+        "Input Signal": input_signal,
+        "Output Signal": output_signal,
+        "Fourier Series Coefficients": fourier_series,
+        "Frequency": frequency,
+        "Fourier Transform": fourier_transform
+    }
+    log_data("log.txt", data_to_log)
+
+    # Plot the results
+    plot_results(t, input_signal, output_signal, fourier_series, frequency, fourier_transform)
+
+if __name__ == "__main__":
+    main()
