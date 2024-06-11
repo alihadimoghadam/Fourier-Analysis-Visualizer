@@ -11,7 +11,7 @@ def calculate_output(input_signal, impulse_response):
 def calculate_fourier_series(input_signal, t, T, num_harmonics):
     coefficients = []
     for n in range(-num_harmonics, num_harmonics + 1):
-        coefficient = np.sum(input_signal * np.exp(-1j * 2 * np.pi * n * t / T)) / T
+        coefficient = np.sum(input_signal * np.exp(-1j * 2 * np.pi * n * t / T)) / len(t)
         coefficients.append(coefficient)
     return np.array(coefficients)
 
@@ -41,7 +41,8 @@ def plot_results(t, input_signal, output_signal, fourier_series, frequency, four
     plt.ylabel('Amplitude')
 
     plt.subplot(2, 2, 3)
-    plt.stem(range(-len(fourier_series)//2, len(fourier_series)//2 + 1), np.abs(fourier_series), basefmt=" ")
+    harmonics_range = range(-len(fourier_series) // 2, len(fourier_series) // 2 + 1)
+    plt.stem(harmonics_range, np.abs(fourier_series), basefmt=" ")
     plt.title('Fourier Series Coefficients')
     plt.xlabel('Harmonics')
     plt.ylabel('Magnitude')
